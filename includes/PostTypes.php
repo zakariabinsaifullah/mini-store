@@ -3,8 +3,9 @@
  * Custom Post Type registrations for Mini Store.
  *
  * Registers:
- *  - ms_product  Public, searchable product listings.
- *  - ms_order    Private (admin-only) orders, created programmatically.
+ *  - ms_product   Public, searchable product listings.
+ *  - ms_order     Private (admin-only) orders, created programmatically.
+ *  - ms_customer  Private (admin-only) customer records, created programmatically.
  *
  * @package MiniStore
  */
@@ -86,6 +87,7 @@ final class PostTypes {
 	public function register(): void {
 		$this->register_product();
 		$this->register_order();
+		$this->register_customer();
 	}
 
 	/**
@@ -174,6 +176,56 @@ final class PostTypes {
 				// Lock "Add New" at the capability level so no code path
 				// (REST, admin, direct wp_insert_post) can create orders
 				// unless granted explicitly.
+				'capability_type'    => 'post',
+				'capabilities'       => [
+					'create_posts' => 'do_not_allow',
+				],
+				'map_meta_cap'       => true,
+			]
+		);
+	}
+
+	/**
+	 * Register the 'ms_customer' CPT.
+	 *
+	 * Not publicly accessible (public=false). Admin UI is kept visible for
+	 * inspection and editing. Customer records are created programmatically
+	 * on order completion – manual "Add New" is locked at the capability level.
+	 *
+	 * @return void
+	 */
+	private function register_customer(): void {
+		$labels = [
+			'name'               => _x( 'Customers', 'post type general name', 'mini-store' ),
+			'singular_name'      => _x( 'Customer', 'post type singular name', 'mini-store' ),
+			'edit_item'          => __( 'Edit Customer', 'mini-store' ),
+			'all_items'          => __( 'All Customers', 'mini-store' ),
+			'not_found'          => __( 'No customers found.', 'mini-store' ),
+			'not_found_in_trash' => __( 'No customers found in Trash.', 'mini-store' ),
+			'menu_name'          => __( 'Customers', 'mini-store' ),
+		];
+
+		register_post_type(
+			'ms_customer',
+			[
+				'labels'             => $labels,
+				'description'        => __( 'Store customers (programmatic only).', 'mini-store' ),
+
+				// Keep off the front-end entirely.
+				'public'             => false,
+				'publicly_queryable' => false,
+				'show_in_rest'       => false,
+
+				// UI visible in admin; Menu.php owns the sidebar entry.
+				'show_ui'            => true,
+				'show_in_menu'       => false,
+				'show_in_nav_menus'  => false,
+
+				'supports'           => [ 'title' ],
+				'rewrite'            => false,
+				'query_var'          => false,
+
+				// Lock "Add New" – customers are created on order completion only.
 				'capability_type'    => 'post',
 				'capabilities'       => [
 					'create_posts' => 'do_not_allow',

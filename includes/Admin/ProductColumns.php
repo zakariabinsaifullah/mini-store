@@ -3,7 +3,7 @@
  * Custom admin columns for the ms_product list table.
  *
  * Adds: Thumbnail, Regular Price (sortable), Sale Price,
- *       Stock (sortable), Shipping costs, Free Delivery flag.
+ *       Stock (sortable), Label, Weight, Dimensions.
  *
  * @package MiniStore\Admin
  */
@@ -77,6 +77,8 @@ final class ProductColumns {
 			'ms_regular_price' => __( 'Price', 'mini-store' ),
 			'ms_sale_price'    => __( 'Sale Price', 'mini-store' ),
 			'ms_stock_qty'     => __( 'Stock', 'mini-store' ),
+			'ms_weight'        => __( 'Weight', 'mini-store' ),
+			'ms_dimensions'    => __( 'Dimensions', 'mini-store' ),
 			'date'             => $columns['date'] ?? __( 'Date', 'mini-store' ),
 		];
 	}
@@ -98,6 +100,8 @@ final class ProductColumns {
 			'ms_regular_price' => $this->render_regular_price( $post_id ),
 			'ms_sale_price'    => $this->render_sale_price( $post_id ),
 			'ms_stock_qty'     => $this->render_stock( $post_id ),
+			'ms_weight'        => $this->render_text_meta( $post_id, '_ms_weight' ),
+			'ms_dimensions'    => $this->render_text_meta( $post_id, '_ms_dimensions' ),
 			default            => null,
 		};
 	}
@@ -205,6 +209,41 @@ final class ProductColumns {
 	}
 
 
+	/**
+	 * Render the product label cell as a small badge.
+	 *
+	 * @param int $post_id Post ID.
+	 * @return void
+	 */
+	private function render_label( int $post_id ): void {
+		$label = get_post_meta( $post_id, '_ms_product_label', true );
+
+		if ( '' !== $label ) {
+			printf(
+				'<span class="ms-col-label">%s</span>',
+				esc_html( $label )
+			);
+		} else {
+			echo '<span class="ms-col-empty">—</span>';
+		}
+	}
+
+	/**
+	 * Render a plain text meta value (weight or dimensions).
+	 *
+	 * @param int    $post_id  Post ID.
+	 * @param string $meta_key Meta key to retrieve.
+	 * @return void
+	 */
+	private function render_text_meta( int $post_id, string $meta_key ): void {
+		$value = get_post_meta( $post_id, $meta_key, true );
+
+		if ( '' !== $value ) {
+			printf( '<span class="ms-col-text">%s</span>', esc_html( $value ) );
+		} else {
+			echo '<span class="ms-col-empty">—</span>';
+		}
+	}
 
 	// -----------------------------------------------------------------------
 	// Sortable columns

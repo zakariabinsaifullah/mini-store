@@ -6,12 +6,12 @@
  * and handles secure save logic for all custom meta fields.
  *
  * Meta keys managed:
- *   _ms_regular_price    (float)  Regular / list price.
- *   _ms_sale_price       (float)  Optional discounted price.
- *   _ms_stock_qty        (int)    Stock quantity.
- *   _ms_shipping_dhaka   (float)  Shipping cost inside Dhaka. Default 60.
- *   _ms_shipping_outside (float)  Shipping cost outside Dhaka. Default 120.
- *   _ms_is_free_delivery (string) '1' = free delivery, '0' = paid.
+ *   _ms_regular_price  (float)  Regular / list price.
+ *   _ms_sale_price     (float)  Optional discounted price.
+ *   _ms_stock_qty      (int)    Stock quantity.
+ *   _ms_product_label  (string) Short badge label (max 40 chars).
+ *   _ms_weight         (string) Product weight, e.g. '500g' or '1kg'.
+ *   _ms_dimensions     (string) Dimensions or size, e.g. '10x5x2 cm'.
  *
  * @package MiniStore\Admin
  */
@@ -128,9 +128,12 @@ final class MetaBoxes {
 	 */
 	public function render( \WP_Post $post ): void {
 		// Retrieve saved values.
-		$regular_price = get_post_meta( $post->ID, '_ms_regular_price', true );
-		$sale_price    = get_post_meta( $post->ID, '_ms_sale_price',    true );
-		$stock_qty     = get_post_meta( $post->ID, '_ms_stock_qty',     true );
+		$regular_price  = get_post_meta( $post->ID, '_ms_regular_price',  true );
+		$sale_price     = get_post_meta( $post->ID, '_ms_sale_price',     true );
+		$stock_qty      = get_post_meta( $post->ID, '_ms_stock_qty',      true );
+		$product_label  = get_post_meta( $post->ID, '_ms_product_label',  true );
+		$weight         = get_post_meta( $post->ID, '_ms_weight',         true );
+		$dimensions     = get_post_meta( $post->ID, '_ms_dimensions',     true );
 
 		// Nonce field for save verification.
 		wp_nonce_field( self::NONCE_ACTION, self::NONCE_FIELD );
@@ -199,14 +202,16 @@ final class MetaBoxes {
 			</div><!-- /.ms-section -->
 
 			<!-- ══════════════════════════════════════════ INVENTORY ══ -->
-			<div class="ms-section ms-section--last">
+			<div class="ms-section">
 
 				<h3 class="ms-section-title">
 					<span class="dashicons dashicons-archive"></span>
 					<?php esc_html_e( 'Inventory', 'mini-store' ); ?>
 				</h3>
 
-				<div class="ms-fields-grid ms-fields-grid--single">
+				<div class="ms-fields-grid">
+
+					<!-- Stock Quantity -->
 					<div class="ms-field">
 						<label for="_ms_stock_qty">
 							<?php esc_html_e( 'Stock Quantity', 'mini-store' ); ?>
@@ -224,7 +229,73 @@ final class MetaBoxes {
 						</div>
 						<span id="ms-stock-status" class="ms-stock-status"></span>
 					</div>
-				</div>
+
+					<!-- Product Label -->
+					<div class="ms-field">
+						<label for="_ms_product_label">
+							<?php esc_html_e( 'Product Label', 'mini-store' ); ?>
+						</label>
+						<input
+							type="text"
+							id="_ms_product_label"
+							name="_ms_product_label"
+							value="<?php echo esc_attr( $product_label ); ?>"
+							placeholder="<?php esc_attr_e( 'e.g. New Arrival, Best Seller…', 'mini-store' ); ?>"
+							maxlength="40"
+							class="ms-label-input"
+						>
+						<span class="ms-label-hint">
+							<?php esc_html_e( 'Shown as a badge on the product. Leave blank to hide.', 'mini-store' ); ?>
+						</span>
+					</div>
+
+				</div><!-- /.ms-fields-grid -->
+
+			</div><!-- /.ms-section -->
+
+			<!-- ══════════════════════════════════════ SPECIFICATIONS ══ -->
+			<div class="ms-section ms-section--last">
+
+				<h3 class="ms-section-title">
+					<span class="dashicons dashicons-info-outline"></span>
+					<?php esc_html_e( 'Specifications', 'mini-store' ); ?>
+				</h3>
+
+				<div class="ms-fields-grid">
+
+					<!-- Weight -->
+					<div class="ms-field">
+						<label for="_ms_weight">
+							<?php esc_html_e( 'Weight', 'mini-store' ); ?>
+						</label>
+						<input
+							type="text"
+							id="_ms_weight"
+							name="_ms_weight"
+							value="<?php echo esc_attr( $weight ); ?>"
+							placeholder="<?php esc_attr_e( 'e.g. 500g or 1kg', 'mini-store' ); ?>"
+							maxlength="60"
+							class="ms-label-input"
+						>
+					</div>
+
+					<!-- Dimensions / Size -->
+					<div class="ms-field">
+						<label for="_ms_dimensions">
+							<?php esc_html_e( 'Dimensions / Size', 'mini-store' ); ?>
+						</label>
+						<input
+							type="text"
+							id="_ms_dimensions"
+							name="_ms_dimensions"
+							value="<?php echo esc_attr( $dimensions ); ?>"
+							placeholder="<?php esc_attr_e( 'e.g. 10×5×2 cm or L / XL / XXL', 'mini-store' ); ?>"
+							maxlength="60"
+							class="ms-label-input"
+						>
+					</div>
+
+				</div><!-- /.ms-fields-grid -->
 
 			</div><!-- /.ms-section -->
 
@@ -289,6 +360,17 @@ final class MetaBoxes {
 		foreach ( $int_keys as $key ) {
 			$value = isset( $_POST[ $key ] ) ? absint( wp_unslash( $_POST[ $key ] ) ) : 0;
 			update_post_meta( $post_id, $key, $value );
+		}
+
+		// 4c ── Text fields (label, weight, dimensions) ───────────────────
+		$text_keys = [ '_ms_product_label', '_ms_weight', '_ms_dimensions' ];
+
+		foreach ( $text_keys as $key ) {
+			update_post_meta(
+				$post_id,
+				$key,
+				sanitize_text_field( wp_unslash( $_POST[ $key ] ?? '' ) )
+			);
 		}
 
 	}

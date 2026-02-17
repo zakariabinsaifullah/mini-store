@@ -7,7 +7,8 @@
  *   Mini Store              ← top-level (opens Dashboard)
  *   ├── Dashboard
  *   ├── Products            ← edit.php?post_type=ms_product
- *   └── Orders              ← edit.php?post_type=ms_order
+ *   ├── Orders              ← edit.php?post_type=ms_order
+ *   └── Customers           ← edit.php?post_type=ms_customer
  *
  * Both CPTs have show_in_menu=false so this class owns the entire
  * menu structure. The parent_file / submenu_file filters restore
@@ -110,6 +111,15 @@ final class Menu {
 			'manage_options',
 			'edit.php?post_type=ms_order'
 		);
+
+		// Customers — points directly to the CPT list table.
+		add_submenu_page(
+			self::SLUG,
+			__( 'Customers – Mini Store', 'mini-store' ),
+			__( 'Customers', 'mini-store' ),
+			'manage_options',
+			'edit.php?post_type=ms_customer'
+		);
 	}
 
 	// -----------------------------------------------------------------------
@@ -126,7 +136,7 @@ final class Menu {
 	public function fix_parent_highlight( string $parent_file ): string {
 		$screen = get_current_screen();
 
-		if ( $screen && in_array( $screen->post_type, [ 'ms_product', 'ms_order' ], true ) ) {
+		if ( $screen && in_array( $screen->post_type, [ 'ms_product', 'ms_order', 'ms_customer' ], true ) ) {
 			return self::SLUG;
 		}
 
@@ -143,7 +153,7 @@ final class Menu {
 	public function fix_submenu_highlight( ?string $submenu_file ): ?string {
 		$screen = get_current_screen();
 
-		if ( $screen && in_array( $screen->post_type, [ 'ms_product', 'ms_order' ], true ) ) {
+		if ( $screen && in_array( $screen->post_type, [ 'ms_product', 'ms_order', 'ms_customer' ], true ) ) {
 			return 'edit.php?post_type=' . $screen->post_type;
 		}
 
