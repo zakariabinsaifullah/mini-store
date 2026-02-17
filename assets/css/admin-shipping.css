@@ -1,0 +1,277 @@
+/* =============================================================================
+   Mini Store — Shipping Settings Page
+   Loaded only on the Shipping admin page via ShippingSettings::enqueue_assets().
+   ============================================================================= */
+
+/* ── Page wrapper ─────────────────────────────────────────────────────────────── */
+.ms-shipping-wrap {
+	max-width: 780px;
+}
+
+/* ── Page header ──────────────────────────────────────────────────────────────── */
+.ms-shipping-header {
+	margin-bottom: 20px;
+}
+
+.ms-shipping-header h1 {
+	font-size: 22px;
+	font-weight: 700;
+	color: #1d2327;
+	margin: 0 0 6px;
+}
+
+.ms-shipping-header p {
+	color: #646970;
+	font-size: 13px;
+	margin: 0;
+}
+
+/* ── Saved notice spacing ─────────────────────────────────────────────────────── */
+.ms-shipping-notice {
+	margin-bottom: 16px !important;
+}
+
+/* ── Card container ───────────────────────────────────────────────────────────── */
+.ms-settings-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* ── Card section ─────────────────────────────────────────────────────────────── */
+.ms-card-section {
+	padding: 28px 30px;
+	border-bottom: 1px solid #f0f0f1;
+	transition: background 0.2s ease;
+}
+
+.ms-card-section--last {
+	border-bottom: none;
+}
+
+/* ── Section header ───────────────────────────────────────────────────────────── */
+.ms-card-section__header {
+	display: flex;
+	align-items: flex-start;
+	gap: 14px;
+	margin-bottom: 22px;
+}
+
+.ms-card-section__header > .dashicons {
+	font-size: 22px;
+	width: 22px;
+	height: 22px;
+	color: #2271b1;
+	margin-top: 2px;
+	flex-shrink: 0;
+}
+
+.ms-card-section__header h2 {
+	font-size: 14px;
+	font-weight: 700;
+	color: #1d2327;
+	margin: 0 0 4px;
+	padding: 0;
+	border: none;
+}
+
+.ms-card-section__header p {
+	font-size: 12px;
+	color: #646970;
+	margin: 0;
+}
+
+/* ── Method selection grid ────────────────────────────────────────────────────── */
+.ms-method-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 14px;
+}
+
+/* ── Method card ──────────────────────────────────────────────────────────────── */
+.ms-method-card {
+	display: block;
+	cursor: pointer;
+}
+
+/* Hide native radio — the card itself is the visual control */
+.ms-method-card input[type="radio"] {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+	pointer-events: none;
+}
+
+.ms-method-card__inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	padding: 22px 16px;
+	border: 2px solid #dcdcde;
+	border-radius: 10px;
+	background: #fafafa;
+	text-align: center;
+	transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ms-method-card__inner strong {
+	font-size: 13px;
+	font-weight: 700;
+	color: #1d2327;
+	line-height: 1.2;
+}
+
+.ms-method-card__inner span {
+	font-size: 11.5px;
+	color: #646970;
+	line-height: 1.4;
+}
+
+/* Hover state */
+.ms-method-card:hover .ms-method-card__inner {
+	border-color: #adb5bd;
+	background: #fff;
+}
+
+/* Selected state — driven by .is-selected class toggled via JS */
+.ms-method-card.is-selected .ms-method-card__inner {
+	border-color: #2271b1;
+	background: #f0f6fc;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* Focus ring for keyboard users */
+.ms-method-card input[type="radio"]:focus-visible + .ms-method-card__inner {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
+}
+
+/* ── Method icons ─────────────────────────────────────────────────────────────── */
+.ms-method-icon {
+	font-size: 34px;
+	width: 34px;
+	height: 34px;
+	color: #adb5bd;
+	transition: color 0.15s ease;
+}
+
+.ms-method-card.is-selected .ms-method-icon--free   { color: #00a32a; }
+.ms-method-card.is-selected .ms-method-icon--single { color: #2271b1; }
+.ms-method-card.is-selected .ms-method-icon--double { color: #8b5cf6; }
+
+/* ── Setting row ──────────────────────────────────────────────────────────────── */
+.ms-setting-row {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	padding: 10px 0;
+}
+
+.ms-setting-row-group .ms-setting-row {
+	border-bottom: 1px solid #f6f7f7;
+}
+
+.ms-setting-row-group .ms-setting-row:last-child {
+	border-bottom: none;
+}
+
+.ms-setting-label {
+	flex: 0 0 240px;
+	font-size: 13px;
+	font-weight: 600;
+	color: #1d2327;
+	line-height: 1.4;
+}
+
+/* ── BDT number input ─────────────────────────────────────────────────────────── */
+.ms-input-wrap {
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 180px;
+}
+
+.ms-bdt {
+	position: absolute;
+	left: 11px;
+	font-size: 13px;
+	font-weight: 500;
+	color: #646970;
+	pointer-events: none;
+	z-index: 1;
+	line-height: 1;
+}
+
+.ms-input-wrap input[type="number"] {
+	width: 100%;
+	padding: 9px 12px 9px 28px;
+	border: 1.5px solid #dcdcde;
+	border-radius: 6px;
+	font-size: 13px;
+	font-weight: 500;
+	color: #1d2327;
+	background: #fff;
+	box-sizing: border-box;
+	-moz-appearance: textfield;
+	appearance: textfield;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ms-input-wrap input[type="number"]::-webkit-inner-spin-button,
+.ms-input-wrap input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.ms-input-wrap input[type="number"]:focus {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 2px rgba(34, 113, 177, 0.2);
+	outline: none;
+}
+
+/* ── COD text input ───────────────────────────────────────────────────────────── */
+.ms-text-input {
+	width: 320px !important;
+	padding: 9px 12px !important;
+	border: 1.5px solid #dcdcde !important;
+	border-radius: 6px !important;
+	font-size: 13px !important;
+	color: #1d2327 !important;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.ms-text-input:focus {
+	border-color: #2271b1 !important;
+	box-shadow: 0 0 0 2px rgba(34, 113, 177, 0.2) !important;
+	outline: none !important;
+}
+
+/* ── Conditional section slide animation ──────────────────────────────────────── */
+.ms-conditional {
+	overflow: hidden;
+	animation: ms-slide-down 0.2s ease;
+}
+
+@keyframes ms-slide-down {
+	from { opacity: 0; transform: translateY(-6px); }
+	to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Form footer ──────────────────────────────────────────────────────────────── */
+.ms-form-footer {
+	margin-top: 20px;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.ms-form-footer .button-primary {
+	padding: 6px 22px !important;
+	height: auto !important;
+	font-size: 13px !important;
+	font-weight: 600 !important;
+}
