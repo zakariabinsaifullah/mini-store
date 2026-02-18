@@ -1,0 +1,43 @@
+.gutenlayouts-icon-settings__quick-inserter {
+    .gutenlayouts-icon-settings__icons {
+        display: grid;
+        gap: 2px;
+        padding: 16px 0;
+        grid-template-columns: repeat(4, 1fr);
+
+        .gutenlayouts-icon-settings__icons-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            height: auto !important;
+            .icon-title {
+                font-size: 12px;
+                margin-top: 12px;
+                text-align: center;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
+            }
+
+            &:hover {
+                background-color: #145cd1 !important;
+                svg {
+                    fill: #fff;
+                }
+                .icon-title {
+                    color: #fff;
+                }
+            }
+
+            &.is-selected {
+                background-color: #145cd1 !important;
+                .icon-title {
+                    font-weight: 400;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

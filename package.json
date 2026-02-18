@@ -4,7 +4,6 @@
   "description": "",
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "build": "wp-scripts build --blocks-manifest",
@@ -34,6 +33,8 @@
     "rangeStart": 0
   },
   "dependencies": {
-    "@wordpress/scripts": "^31.4.0"
+    "@wordpress/icons": "^11.6.0",
+    "@wordpress/scripts": "^31.4.0",
+    "classnames": "^2.5.1"
   }
 }

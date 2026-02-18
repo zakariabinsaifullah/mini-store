@@ -125,7 +125,7 @@ final class PostTypes {
 				'show_in_rest'  => true,   // Enables REST API; block editor disabled via filter below.
 				'show_in_menu'  => false,  // Menu.php owns the sidebar entry.
 				'rewrite'       => [ 'slug' => 'products', 'with_front' => false ],
-				'supports'      => [ 'title', 'editor', 'thumbnail' ],
+				'supports'      => [ 'title', 'editor', 'thumbnail', 'excerpt' ],
 			]
 		);
 	}

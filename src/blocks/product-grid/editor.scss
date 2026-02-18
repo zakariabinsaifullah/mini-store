@@ -1,0 +1,15 @@
+/**
+ * Editor-specific styles for the Product Grid block
+ */
+
+.wp-block-mini-store-product-grid {
+	/* Editor-specific overrides */
+	.mini-store-product {
+		pointer-events: none;
+	}
+
+	.components-placeholder {
+		min-height: 200px;
+		padding: 2rem;
+	}
+}
