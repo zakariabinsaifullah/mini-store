@@ -1,0 +1,484 @@
+/**
+ * Mini Store — Checkout Form Builder
+ * Styles for the drag-and-drop admin form builder page.
+ */
+
+/* ─── CSS Custom Properties ─────────────────────────────────────────────── */
+.ms-fb-wrap {
+	--fb-accent:        #2271b1;
+	--fb-accent-dark:   #135e96;
+	--fb-accent-light:  #dce9f5;
+	--fb-danger:        #d63638;
+	--fb-danger-light:  #fce8e8;
+	--fb-success:       #00a32a;
+	--fb-success-light: #e6f5e9;
+	--fb-border:        #c3c4c7;
+	--fb-border-light:  #e2e4e7;
+	--fb-white:         #ffffff;
+	--fb-surface:       #fafafa;
+	--fb-text:          #1e1e1e;
+	--fb-text-muted:    #646970;
+	--fb-shadow-sm:     0 1px 3px rgba(0, 0, 0, .08), 0 0 0 1px rgba(0, 0, 0, .04);
+	--fb-shadow-md:     0 4px 12px rgba(0, 0, 0, .10);
+	--fb-shadow-drag:   0 8px 24px rgba(0, 0, 0, .18);
+	--fb-radius:        6px;
+	--fb-transition:    0.15s ease;
+	max-width: 1120px;
+}
+
+/* ─── Page Header ────────────────────────────────────────────────────────── */
+.ms-fb-header {
+	display:         flex;
+	align-items:     center;
+	justify-content: space-between;
+	gap:             16px;
+	flex-wrap:       wrap;
+	margin-bottom:   24px;
+	padding:         20px 24px;
+	background:      var(--fb-white);
+	border:          1px solid var(--fb-border);
+	border-radius:   var(--fb-radius);
+	box-shadow:      var(--fb-shadow-sm);
+}
+
+.ms-fb-header__title {
+	display:     flex;
+	align-items: center;
+	gap:         14px;
+}
+
+.ms-fb-header__title > .dashicons {
+	font-size: 34px;
+	width:     34px;
+	height:    34px;
+	color:     var(--fb-accent);
+	flex-shrink: 0;
+}
+
+.ms-fb-header__title h1 {
+	margin:      0 0 4px;
+	font-size:   20px;
+	font-weight: 600;
+	line-height: 1.2;
+	color:       var(--fb-text);
+}
+
+.ms-fb-header__title p {
+	margin:    0;
+	font-size: 13px;
+	color:     var(--fb-text-muted);
+}
+
+/* Save button */
+.ms-fb-save-btn.button {
+	display:     inline-flex !important;
+	align-items: center;
+	gap:         6px;
+	padding:     8px 20px !important;
+	font-size:   14px !important;
+	flex-shrink: 0;
+}
+
+.ms-fb-save-btn .dashicons {
+	font-size: 18px;
+	width:     18px;
+	height:    18px;
+}
+
+/* ─── AJAX Notice ────────────────────────────────────────────────────────── */
+.ms-fb-notice {
+	display:       flex;
+	align-items:   center;
+	gap:           10px;
+	margin-bottom: 20px;
+	padding:       12px 16px;
+	border-radius: var(--fb-radius);
+	font-size:     13px;
+	font-weight:   500;
+	line-height:   1.5;
+}
+
+.ms-fb-notice .dashicons {
+	font-size:   18px;
+	width:       18px;
+	height:      18px;
+	flex-shrink: 0;
+}
+
+.ms-fb-notice--success {
+	background: var(--fb-success-light);
+	border:     1px solid var(--fb-success);
+	color:      var(--fb-success);
+}
+
+.ms-fb-notice--error {
+	background: var(--fb-danger-light);
+	border:     1px solid var(--fb-danger);
+	color:      var(--fb-danger);
+}
+
+/* ─── Builder Layout (two columns) ──────────────────────────────────────── */
+.ms-fb-builder {
+	display:     flex;
+	gap:         20px;
+	align-items: flex-start;
+}
+
+/* ─── Panels (shared) ────────────────────────────────────────────────────── */
+.ms-fb-panel {
+	background:    var(--fb-white);
+	border:        1px solid var(--fb-border);
+	border-radius: var(--fb-radius);
+	box-shadow:    var(--fb-shadow-sm);
+	overflow:      hidden;
+}
+
+/* Left: stretches to fill remaining space */
+.ms-fb-panel--canvas {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+/* Right: fixed-width, sticks below WP admin bar */
+.ms-fb-panel--palette {
+	flex:       0 0 280px;
+	width:      280px;
+	position:   sticky;
+	top:        32px;
+}
+
+/* Panel header bar */
+.ms-fb-panel__header {
+	display:       flex;
+	align-items:   center;
+	gap:           10px;
+	padding:       13px 18px;
+	background:    var(--fb-surface);
+	border-bottom: 1px solid var(--fb-border-light);
+}
+
+.ms-fb-panel__header > .dashicons {
+	font-size: 17px;
+	width:     17px;
+	height:    17px;
+	color:     var(--fb-accent);
+}
+
+.ms-fb-panel__header h2 {
+	margin:         0;
+	font-size:      11px;
+	font-weight:    700;
+	text-transform: uppercase;
+	letter-spacing: .07em;
+	color:          var(--fb-text-muted);
+}
+
+/* ─── Canvas (drop area) ─────────────────────────────────────────────────── */
+.ms-fb-canvas {
+	min-height:     320px;
+	padding:        14px;
+	display:        flex;
+	flex-direction: column;
+	gap:            10px;
+}
+
+/* Empty-state hint */
+.ms-fb-canvas__empty {
+	display:         flex;
+	flex-direction:  column;
+	align-items:     center;
+	justify-content: center;
+	min-height:      260px;
+	gap:             12px;
+	pointer-events:  none;
+	user-select:     none;
+}
+
+.ms-fb-canvas__empty .dashicons {
+	font-size: 48px;
+	width:     48px;
+	height:    48px;
+	color:     var(--fb-border);
+}
+
+.ms-fb-canvas__empty p {
+	margin:    0;
+	font-size: 14px;
+	color:     var(--fb-border);
+}
+
+/* jQuery UI sortable drop placeholder */
+.ms-fb-sortable-placeholder {
+	border:        2px dashed var(--fb-accent);
+	border-radius: var(--fb-radius);
+	background:    var(--fb-accent-light);
+	visibility:    visible !important;
+}
+
+/* ─── Field Item (canvas card) ───────────────────────────────────────────── */
+.ms-fb-field-item {
+	border:        1px solid var(--fb-border-light);
+	border-left:   4px solid var(--fb-accent);
+	border-radius: var(--fb-radius);
+	background:    var(--fb-white);
+	box-shadow:    var(--fb-shadow-sm);
+	transition:    box-shadow var(--fb-transition);
+	animation:     ms-fb-slide-in 0.2s ease both;
+}
+
+@keyframes ms-fb-slide-in {
+	from { opacity: 0; transform: translateY(-6px); }
+	to   { opacity: 1; transform: translateY(0); }
+}
+
+.ms-fb-field-item:hover {
+	box-shadow: var(--fb-shadow-md);
+}
+
+/* While being dragged */
+.ms-fb-field-item.ui-sortable-helper {
+	box-shadow: var(--fb-shadow-drag);
+	opacity:    .95;
+	transform:  scale(1.012);
+	cursor:     grabbing;
+}
+
+/* Card header row */
+.ms-fb-field-item__header {
+	display:       flex;
+	align-items:   center;
+	gap:           10px;
+	padding:       9px 13px;
+	background:    var(--fb-surface);
+	border-bottom: 1px solid var(--fb-border-light);
+	border-radius: calc(var(--fb-radius) - 2px) calc(var(--fb-radius) - 2px) 0 0;
+}
+
+/* Drag handle */
+.ms-fb-drag-handle {
+	cursor:      grab;
+	font-size:   18px;
+	width:       18px;
+	height:      18px;
+	color:       #c3c4c7;
+	flex-shrink: 0;
+	transition:  color var(--fb-transition);
+	line-height: 1;
+}
+
+.ms-fb-drag-handle:hover {
+	color: var(--fb-accent);
+}
+
+.ms-fb-drag-handle:active {
+	cursor: grabbing;
+}
+
+/* Field type badge */
+.ms-fb-field-item__name {
+	flex:        1;
+	font-size:   13px;
+	font-weight: 600;
+	color:       var(--fb-text);
+	white-space: nowrap;
+	overflow:    hidden;
+	text-overflow: ellipsis;
+}
+
+/* Remove button */
+.ms-fb-remove-btn {
+	display:     inline-flex;
+	align-items: center;
+	gap:         4px;
+	padding:     4px 10px;
+	border:      1px solid transparent;
+	border-radius: 4px;
+	background:  transparent;
+	color:       var(--fb-text-muted);
+	font-size:   12px;
+	font-weight: 500;
+	cursor:      pointer;
+	flex-shrink: 0;
+	transition:  background var(--fb-transition), color var(--fb-transition), border-color var(--fb-transition);
+}
+
+.ms-fb-remove-btn .dashicons {
+	font-size: 14px;
+	width:     14px;
+	height:    14px;
+}
+
+.ms-fb-remove-btn:hover {
+	background:   var(--fb-danger-light);
+	color:        var(--fb-danger);
+	border-color: var(--fb-danger);
+}
+
+/* Card body: editable fields */
+.ms-fb-field-item__body {
+	padding:        13px 14px;
+	display:        flex;
+	flex-direction: column;
+	gap:            10px;
+}
+
+/* Each label + input row */
+.ms-fb-field-row {
+	display:     grid;
+	grid-template-columns: 108px 1fr;
+	align-items: center;
+	gap:         10px;
+}
+
+.ms-fb-field-row--check {
+	grid-template-columns: 1fr;
+}
+
+.ms-fb-field-row > label {
+	font-size:      11px;
+	font-weight:    700;
+	text-transform: uppercase;
+	letter-spacing: .05em;
+	color:          var(--fb-text-muted);
+	white-space:    nowrap;
+}
+
+/* Text inputs */
+.ms-fb-input {
+	width:      100%;
+	padding:    6px 10px;
+	border:     1px solid var(--fb-border);
+	border-radius: 4px;
+	font-size:  13px;
+	color:      var(--fb-text);
+	box-sizing: border-box;
+	background: var(--fb-white);
+	transition: border-color var(--fb-transition), box-shadow var(--fb-transition);
+	line-height: 1.4;
+}
+
+.ms-fb-input:focus {
+	border-color: var(--fb-accent);
+	box-shadow:   0 0 0 2px rgba(34, 113, 177, .18);
+	outline:      none;
+}
+
+/* Required checkbox label */
+.ms-fb-field-row--check label {
+	display:        inline-flex;
+	align-items:    center;
+	gap:            8px;
+	font-size:      11px;
+	font-weight:    700;
+	text-transform: uppercase;
+	letter-spacing: .05em;
+	color:          var(--fb-text-muted);
+	cursor:         pointer;
+}
+
+.ms-fb-field-row--check input[type="checkbox"] {
+	width:  15px;
+	height: 15px;
+	cursor: pointer;
+	accent-color: var(--fb-accent);
+}
+
+/* ─── Field Palette (right panel) ────────────────────────────────────────── */
+.ms-fb-palette {
+	padding:        12px;
+	display:        flex;
+	flex-direction: column;
+	gap:            6px;
+}
+
+/* Palette button */
+.ms-fb-palette-btn {
+	display:       flex;
+	align-items:   center;
+	gap:           10px;
+	width:         100%;
+	padding:       11px 13px;
+	border:        1px solid var(--fb-border-light);
+	border-radius: var(--fb-radius);
+	background:    var(--fb-white);
+	cursor:        pointer;
+	text-align:    left;
+	color:         var(--fb-text);
+	box-shadow:    0 1px 2px rgba(0, 0, 0, .04);
+	transition:    border-color var(--fb-transition), background var(--fb-transition), box-shadow var(--fb-transition), opacity var(--fb-transition);
+}
+
+.ms-fb-palette-btn > .dashicons:first-child {
+	font-size:   18px;
+	width:       18px;
+	height:      18px;
+	color:       var(--fb-accent);
+	flex-shrink: 0;
+}
+
+.ms-fb-palette-btn__label {
+	flex:        1;
+	font-size:   13px;
+	font-weight: 500;
+}
+
+/* "+" add icon — visible on hover */
+.ms-fb-palette-btn__add {
+	font-size:  16px !important;
+	width:      16px !important;
+	height:     16px !important;
+	color:      var(--fb-accent) !important;
+	opacity:    0;
+	transition: opacity var(--fb-transition);
+	flex-shrink: 0;
+}
+
+.ms-fb-palette-btn:not(.is-added):hover {
+	border-color: var(--fb-accent);
+	background:   var(--fb-accent-light);
+	box-shadow:   0 2px 8px rgba(34, 113, 177, .14);
+}
+
+.ms-fb-palette-btn:not(.is-added):hover .ms-fb-palette-btn__add {
+	opacity: 1;
+}
+
+/* Already-added state: greyed out, non-interactive */
+.ms-fb-palette-btn.is-added {
+	opacity: .45;
+	cursor:  not-allowed;
+	background: #f0f0f1;
+	border-color: var(--fb-border-light);
+	box-shadow: none;
+}
+
+.ms-fb-palette-btn.is-added .ms-fb-palette-btn__add {
+	display: none;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+@media screen and (max-width: 960px) {
+	.ms-fb-builder {
+		flex-direction: column-reverse;
+	}
+
+	.ms-fb-panel--palette {
+		flex:     1 1 100%;
+		width:    100%;
+		position: static;
+	}
+
+	.ms-fb-panel--canvas {
+		flex: 1 1 100%;
+	}
+
+	.ms-fb-header {
+		flex-direction: column;
+		align-items:    flex-start;
+	}
+
+	.ms-fb-save-btn.button {
+		width: 100%;
+		justify-content: center;
+	}
+}
