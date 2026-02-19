@@ -45,6 +45,7 @@ final class MetaBoxes {
 		add_action( 'add_meta_boxes',         [ $this, 'register' ] );
 		add_action( 'save_post_ms_product',   [ $this, 'save' ], 10, 2 );
 		add_action( 'admin_enqueue_scripts',  [ $this, 'enqueue_assets' ] );
+		add_action( 'rest_api_init',          [ $this, 'register_rest_fields' ] );
 	}
 
 	public static function get_instance(): self {
@@ -52,6 +53,52 @@ final class MetaBoxes {
 			self::$instance = new self();
 		}
 		return self::$instance;
+	}
+
+	/**
+	 * Register meta fields and custom fields for REST API.
+	 *
+	 * @return void
+	 */
+	public function register_rest_fields(): void {
+		// Register meta keys to be exposed in REST API
+		$meta_keys = [
+			'_ms_regular_price' => 'number',
+			'_ms_sale_price'    => 'number',
+			'_ms_stock_qty'     => 'integer',
+		];
+
+		foreach ( $meta_keys as $key => $type ) {
+			register_post_meta(
+				'ms_product',
+				$key,
+				[
+					'show_in_rest' => true,
+					'single'       => true,
+					'type'         => $type,
+					'auth_callback' => function() {
+						return current_user_can( 'edit_posts' );
+					},
+				]
+			);
+		}
+
+		// Register featured image URL field
+		register_rest_field(
+			'ms_product',
+			'featured_media_src_url',
+			[
+				'get_callback' => function( $object ) {
+					if ( ! empty( $object['featured_media'] ) ) {
+						$img = wp_get_attachment_image_src( $object['featured_media'], 'medium' );
+						return $img ? $img[0] : null;
+					}
+					return null;
+				},
+				'update_callback' => null,
+				'schema'          => null,
+			]
+		);
 	}
 
 	private function __clone() {}

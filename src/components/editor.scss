@@ -1,0 +1,235 @@
+.native-pro-notice {
+    display: flex;
+    flex-direction: column;
+    padding: 51px 16px;
+    gap: 8px;
+    background: #f8f8f8;
+    border-top: 1px solid #e0e0e0;
+}
+
+.native-control-wrapper {
+    margin-bottom: 16px !important;
+
+    &.mb-0 {
+        margin-bottom: 0 !important;
+    }
+
+    .components-input-control__container {
+        max-width: var(--max-width, 100%);
+    }
+
+    .components-input-control__input {
+        min-height: 40px !important;
+    }
+
+    .components-base-control__help {
+        font-style: italic;
+    }
+}
+
+.native-tools-panel-item {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid #e0e0e0 !important;
+}
+
+.native-tools-panel-item .components-dropdown {
+    width: 100% !important;
+}
+
+.native-tools-panel-item + .native-tools-panel-item {
+    border-top: none !important;
+}
+
+.native-tools-panel-item:first-child {
+    border-radius: 3px 3px 0 0 !important;
+}
+
+.native-tools-panel-item:last-child {
+    border-radius: 0 0 3px 3px !important;
+}
+
+.native-color-btn {
+    width: 100% !important;
+    min-height: 38px !important;
+}
+
+.native-panel-color-control {
+    .components-heading {
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 11px;
+        margin: 0 0 8px !important;
+        width: 100%;
+    }
+
+    .components-tools-panel {
+        padding: 0;
+        border-top: none;
+    }
+
+    .components-dropdown-menu__toggle {
+        display: none !important;
+    }
+
+    .block-editor-tools-panel-color-gradient-settings__item:nth-child(1 of .block-editor-tools-panel-color-gradient-settings__item) {
+        margin-top: 0;
+    }
+}
+
+// Responsive Control
+.native-responsive-value {
+    display: flex;
+    align-items: center;
+}
+
+.native-responsive-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.native-responsive-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.native-responsive-device-selector {
+    display: inline-flex;
+    gap: 4px;
+}
+
+button.native-responsive-device-button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    line-height: 1;
+    color: #999;
+    &.active {
+        color: #000;
+    }
+}
+
+button.native-responsive-device-button span {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    font-size: 14px;
+}
+
+button.native-responsive-device-button span::before {
+    font-size: 13px;
+}
+
+// SVG Icons Modal
+.gutenlayouts-modal__overlay {
+    .components-modal__header-heading-container {
+        min-width: fit-content;
+    }
+
+    .gutenlayouts-modal__tabs {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: 20px;
+    }
+
+    .gutenlayouts-modal__tabs-button {
+        border: 1px solid #949494;
+        height: 36px !important;
+        padding: 6px 20px;
+        &:hover,
+        &:focus {
+            background: #fff;
+            color: #000;
+            border-color: #000;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+    }
+
+    .gutenlayouts-modal__tabs-button.is-selected {
+        background: #000;
+        color: #fff;
+        border-color: #000;
+    }
+
+    .gutenlayouts-modal__container {
+        display: flex;
+        gap: 30px;
+        margin-top: 30px;
+    }
+
+    h4.icons-heading {
+        margin: 0 0 20px;
+        font-size: 18px;
+    }
+
+    .gutenlayouts-modal__sidebar {
+        min-width: 230px;
+        width: 230px;
+    }
+
+    .gutenlayouts-modal__content {
+        flex-grow: 1;
+    }
+
+    .gutenlayouts-modal__sidebar-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .gutenlayouts-modal__sidebar-button.is-selected {
+        color: #ffffff;
+        background: #145cd1;
+    }
+
+    .components-flex {
+        width: 100%;
+    }
+
+    .components-flex-item {
+        width: 100%;
+    }
+
+    .components-input-control__input {
+        height: 40px !important;
+    }
+
+    .gutenlayouts-modal__icons {
+        margin-top: 15px;
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: 15px;
+    }
+
+    .gutenlayouts-modal__icons-button {
+        gap: 8px;
+        border: 1px solid #949494;
+        padding: 20px;
+        font-size: 12px;
+        svg {
+            width: 28px;
+            height: 28px;
+        }
+    }
+
+    .gutenlayouts-modal__icons-button.is-selected {
+        border-color: #145cd1;
+        background: #145cd1;
+        color: #fff;
+    }
+
+    .gutenlayouts-modal__icons-button:hover {
+        border-color: #145cd1;
+        background: #145cd1;
+        color: #fff !important;
+    }
+}

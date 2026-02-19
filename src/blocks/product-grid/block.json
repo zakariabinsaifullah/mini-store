@@ -1,0 +1,108 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mini-store/product-grid",
+	"version": "1.0.0",
+	"title": "Product Grid",
+	"category": "widgets",
+	"description": "Display your Mini Store products in a responsive grid layout.",
+	"keywords": ["products", "grid", "store", "shop", "ecommerce"],
+	"supports": {
+		"anchor": true,
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"__experimentalDefaultControls": {
+				"margin": false,
+				"padding": false
+			}
+		}
+	},
+	"attributes": {
+		"columns": {
+			"type": "number",
+			"default": 3
+		},
+		"productsToShow": {
+			"type": "number",
+			"default": 15
+		},
+		"orderBy": {
+			"type": "string",
+			"default": "date"
+		},
+		"order": {
+			"type": "string",
+			"default": "DESC"
+		},
+		"showPrice": {
+			"type": "boolean",
+			"default": true
+		},
+		"showAddToCart": {
+			"type": "boolean",
+			"default": true
+		},
+		"showImage": {
+			"type": "boolean",
+			"default": true
+		},
+        "gap":{
+            "type":"number"
+           
+        },
+        "btnLabel":{
+            "type":"string",
+			"default": "Add to Cart"
+        },
+        "titleColor":{
+            "type":"string"
+        },
+        "titleSize":{
+            "type":"number"
+        },
+        "btnColor":{
+            "type":"string"
+        },
+        "btnLabelSize":{
+            "type":"number"
+        },
+        "btnBgColor":{
+            "type":"string"
+        },
+        "btnHoverColor":{
+            "type":"string"
+        },
+        "btnHoverBgColor":{
+            "type":"string"
+        },
+        "descriptionColor":{
+            "type":"string"
+        },
+        "descSize":{
+            "type":"number"
+        },
+        "priceSize":{
+            "type":"number"
+        },
+        "priceColor":{
+            "type":"string"
+        },
+		"salepriceColor":{
+            "type":"string"
+        }
+       
+        
+
+       
+       
+       
+	},
+	"textdomain": "mini-store",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+    "render": "file:./render.php"
+}

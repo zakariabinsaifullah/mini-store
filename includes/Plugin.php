@@ -119,5 +119,6 @@ final class Plugin {
 		Admin\ProductColumns::get_instance();
 		Admin\ProductDuplicator::get_instance();
 		Admin\ShippingSettings::get_instance();
+		Blocks::get_instance();
 	}
 }
